@@ -1,0 +1,38 @@
+/* Lógico_1: */
+
+CREATE TABLE Atividade (
+    id_atividade int PRIMARY KEY,
+    prioridade int,
+    nome_atividade varchar/200,
+    data_limite date,
+    porcentagem_concluido float,
+    detalhamento varchar/200
+);
+
+CREATE TABLE Item_de_execucao (
+    id_execucao int PRIMARY KEY,
+    percentual float,
+    data date,
+    descricao_execucao varchar/200,
+    fk_Atividade_id_atividade int
+);
+
+CREATE TABLE Atividade_concluida (
+    detalhamento varchar/200,
+    percentual_concluido float,
+    data_limite date,
+    nome_atividade varchar/200,
+    prioridade int,
+    id_concluido int PRIMARY KEY,
+    fk_Item_de_execucao_id_execucao int
+);
+ 
+ALTER TABLE Item_de_execucao ADD CONSTRAINT FK_Item_de_execucao_2
+    FOREIGN KEY (fk_Atividade_id_atividade)
+    REFERENCES Atividade (id_atividade)
+    ON DELETE SET NULL;
+ 
+ALTER TABLE Atividade_concluida ADD CONSTRAINT FK_Atividade_concluida_2
+    FOREIGN KEY (fk_Item_de_execucao_id_execucao)
+    REFERENCES Item_de_execucao (id_execucao)
+    ON DELETE SET NULL;
